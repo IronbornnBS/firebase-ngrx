@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../../_interfaces/user.model';
-import { UserService } from 'src/app/shared/services/user.service';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../state/app.state';
+import * as userActions from '../state/user.actions';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit {
   error: string;
   constructor(
     private route: Router,
-    private userService: UserService,
+    private store: Store<fromRoot.State>
   ) { }
 
   ngOnInit() {
@@ -30,16 +32,7 @@ export class LoginComponent implements OnInit {
     this.error = '';
     this.user.email = data.value.Email;
     this.user.password = data.value.Password;
-    this.userService.login(this.user.email, this.user.password)
-        .then(res => {
-          if (res !== null) {
-            // this.toastr.successToastr('Registration Completed, Please login', 'Success!');
-            this.route.navigate(['/annuity-list']);
-          }
-        })
-        .catch(err => {
-          // this.toastr.errorToastr(err.message, 'Error!');
-        });
+    this.store.dispatch(new userActions.Login(this.user));
   }
 
   Register() {

@@ -12,6 +12,6 @@ export class UserSelector {
 
   public getCurrentUser = createSelector(
     this.getUserFeatureState,
-    state => state.currentUser
+    state => state.uid
   );
 }

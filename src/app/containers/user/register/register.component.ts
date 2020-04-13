@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/_interfaces/user.model';
-import { UserService } from 'src/app/shared/services/user.service';
+import * as fromRoot from '../../../state/app.state';
+import * as userActions from '../state/user.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-register',
@@ -20,8 +22,8 @@ export class RegisterComponent implements OnInit {
   formValid: boolean;
 
   constructor(
-    private route: Router,
-    private userService: UserService,
+    private store: Store<fromRoot.State>,
+    private route: Router
   ) { }
 
   ngOnInit() {
@@ -33,18 +35,7 @@ export class RegisterComponent implements OnInit {
     this.user.email = data.value.Email;
     if (data.value.Password === data.value.ConfirmPassword) {
       this.user.password = data.value.Password;
-      await this.userService.registration(this.user)
-        .then(res => {
-          if (res !== null) {
-            // this.toastr.successToastr('Registration Completed, Please login', 'Success!');
-            console.log(res);
-          }
-        })
-        .catch(err => {
-          // this.toastr.errorToastr(err.message, 'Error!');
-        });
-    } else {
-      // this.toastr.errorToastr('Password must match Confirm Password', 'Error!');
+      this.store.dispatch(new userActions.Register(this.user));
     }
   }
 

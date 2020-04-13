@@ -3,7 +3,7 @@ import { UserActions } from './user.actions';
 import { UserActionTypes } from './user.type';
 
 const initialState: UserState = {
-  currentUser: null,
+  uid: '',
 };
 
 export function reducer(state = initialState, action: UserActions): UserState {
@@ -11,13 +11,33 @@ export function reducer(state = initialState, action: UserActions): UserState {
     case UserActionTypes.SetCurrentUser:
       return {
         ...state,
-        currentUser: action.payload,
+        uid: action.payload,
       };
     case UserActionTypes.ClearCurrentUser:
       return {
         ...state,
-        currentUser: null,
+        uid: null,
       };
+      case UserActionTypes.LoginSuccess:
+        return {
+          ...state,
+          uid: action.payload
+        };
+      case UserActionTypes.LoginFail:
+        return {
+          ...state,
+          uid: null
+        };
+      case UserActionTypes.RegisterSuccess:
+        return {
+          ...state,
+          uid: action.payload
+        };
+      case UserActionTypes.RegisterFail:
+        return {
+          ...state,
+          uid: null
+        };
 
     default:
       return state;
