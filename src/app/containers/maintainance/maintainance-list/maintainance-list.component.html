@@ -1,0 +1,41 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Maintainance Table</h4>
+            <a (click)="createMaintainanceCustomer()" class="float">
+              <i class="fa fa-plus my-float"></i>
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <tr>
+                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="tableRow" (click)="UpdateStore(client.id)" *ngFor="let client of customers">
+                    <td>{{client.EntityFullName}}</td>
+                    <td>{{client.EntityId}}</td>
+                    <td>{{client.Product}}</td>
+                    <td>{{client.ProductCategory}}</td>
+                    <td>{{client.Item}}</td>
+                    <td>{{client.Qty}}</td>
+                    <td>R{{client.UnitPrice}}.00</td>
+                    <td>R{{client.UnitPrice * client.Qty}}.00</td>
+                    <td>{{client.StartDate}}</td>
+                    <td>{{client.RenewalDate}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
