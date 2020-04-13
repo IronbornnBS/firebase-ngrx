@@ -16,6 +16,11 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'user',
+    loadChildren: () =>
+      import('./containers/user/user.module').then(m => m.UserModule)
+  },
+  {
     path: '',
     component: AdminLayoutComponent,
     children: [

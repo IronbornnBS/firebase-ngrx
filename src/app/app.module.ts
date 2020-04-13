@@ -8,12 +8,13 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { ComponentsModule } from './components/components-module';
 import { AppRouteModule } from './app.routing';
-import { LoginComponent } from './containers/user/login/login.component';
-import { RegisterComponent } from './containers/user/register/register.component';
 import { environment } from 'src/environments/environment';
 
 import {  MatNativeDateModule } from '@angular/material/core';
@@ -29,8 +30,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent,
-    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +39,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      name: 'Capture Demo App DevTools',
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
     ComponentsModule,
     MatFormFieldModule,
     MatButtonModule,
