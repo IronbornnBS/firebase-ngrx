@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AnnuityService } from 'src/app/shared/services/annuity.service';
 import { Annuity } from 'src/app/_interfaces/annuity.model';
+import { Store, select } from '@ngrx/store';
+import { AnnuitySelector } from '../state/annuity.selector';
+import * as fromRoot from '../../../state/app.state';
+import * as annuityActions from '../state/annuity.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-annuity-list',
@@ -17,7 +22,8 @@ export class AnnuityListComponent implements OnInit {
     'Anniversary Date',
     'Renewal Date',
   ];
-  customers: Annuity[] = [];
+
+  customers$: Observable<Annuity[]>;
   customer: Annuity = {
     EntityId: '',
     EntityFullName: '',
@@ -26,19 +32,21 @@ export class AnnuityListComponent implements OnInit {
     RenewalDate: '',
     AnnuityAmount: 0,
   };
+
   public selectedName: any;
-  constructor(private route: Router, private annuityService: AnnuityService) {}
+  constructor(private route: Router,
+              private annuityService: AnnuityService,
+              private store: Store<fromRoot.State>,
+              private annuitySelector: AnnuitySelector) {}
 
   ngOnInit() {
-    this.annuityService.get()
-    .subscribe((customers) => {
-      this.customers = customers.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data()
-        } as Annuity;
-      });
-    });
+
+    this.getProducts();
+    this.customers$ = this.store.pipe(select(this.annuitySelector.getShowAnnuities));
+  }
+
+  getProducts(): void {
+    this.store.dispatch(new annuityActions.Load());
   }
 
   createAnnuityCustomer() {
@@ -52,11 +60,6 @@ export class AnnuityListComponent implements OnInit {
     this.annuityService.create(this.customer).then( res => {
       console.log(res);
     });
-
-    // this.route.navigate(['/create']).then(
-    //   () => {},
-    //   () => {}
-    // );
   }
 
   UpdateStore(data) {
