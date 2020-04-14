@@ -3,23 +3,29 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { UserService } from 'src/app/shared/services/user.service';
 import { UserActionTypes } from '../state/user.type';
 import * as userActions from '../state/user.actions';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap, switchMap, exhaustMap } from 'rxjs/operators';
 import { User } from 'src/app/_interfaces/user.model';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserEffect {
-  constructor(private actions$: Actions, private userService: UserService) {}
+  constructor(private actions$: Actions,
+              private userService: UserService,
+              private route: Router) {}
 
   @Effect()
   Login$ = this.actions$.pipe(
     ofType(UserActionTypes.Login),
     map((action: userActions.Login) => action.payload),
-    mergeMap((user: User) =>
+    exhaustMap((user: User) =>
       this.userService
         .login(user.email, user.password)
-        .then((data) => new userActions.LoginSuccess(data.user.uid))
-        .catch((error) => new userActions.LoginFail(error.message))
-    )
+        .pipe(
+          map(data => new userActions.LoginSuccess(data.user.uid)),
+          tap(() => this.route.navigate(['/annuity-list'])),
+          catchError(error => of(new userActions.LoginFail(error)))
+        ))
   );
 
   @Effect()
@@ -29,8 +35,11 @@ export class UserEffect {
     mergeMap((user: User) =>
       this.userService
         .register(user.email, user.password)
-        .then((data) => new userActions.RegisterSuccess(data.user.uid))
-        .catch((error) => new userActions.RegisterFail(error.message))
+        .pipe(
+          map(data => new userActions.LoginSuccess(data.user.uid)),
+          tap(() => this.route.navigate(['/annuity-list'])),
+          catchError(error => of(new userActions.LoginFail(error)))
+        )
     )
   );
 }
