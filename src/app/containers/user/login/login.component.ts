@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../../_interfaces/user.model';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../../state/app.state';
 import * as userActions from '../state/user.actions';
+import { UserSelector } from '../state/user.selector';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -21,11 +23,15 @@ export class LoginComponent implements OnInit {
   error: string;
   constructor(
     private route: Router,
-    private store: Store<fromRoot.State>
+    private store: Store<fromRoot.State>,
+    private userSelector: UserSelector
   ) { }
 
   ngOnInit() {
     this.loginFailedMsg = '';
+    this.store.pipe(
+      select(this.userSelector.getCurrentUser))
+      .subscribe( currentProduct => currentProduct );
   }
   async onSubmit(data) {
     this.loginFailedMsg = '';
