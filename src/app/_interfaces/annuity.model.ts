@@ -1,5 +1,3 @@
-import { DocumentReference } from '@angular/fire/firestore';
-
 export class Annuity {
   id?: string;
   EntityId: string;
@@ -8,5 +6,4 @@ export class Annuity {
   AnniversaryDate: string;
   RenewalDate: string;
   AnnuityAmount: number;
-  EntityRef?: DocumentReference;
 }
