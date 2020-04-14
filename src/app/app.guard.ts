@@ -11,7 +11,6 @@ import { take, map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  uid = null;
   constructor(private route: Router,
               private store: Store<fromRoot.State>,
               private userSelector: UserSelector) {
@@ -25,7 +24,6 @@ export class AuthGuard implements CanActivate {
           this.route.navigate(['/login']);
           return false;
         }
-
         return true;
       }),
       take(1)
