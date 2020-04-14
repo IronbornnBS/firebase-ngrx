@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from '../../_interfaces/user.model';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,10 +22,10 @@ export class UserService {
   }
 
   login = (email: string, password: string) =>
-    this.fireauth.signInWithEmailAndPassword(email, password)
+    from(this.fireauth.signInWithEmailAndPassword(email, password))
 
   register = (email: string, password: string) =>
-    this.fireauth.createUserWithEmailAndPassword(email, password)
+    from(this.fireauth.createUserWithEmailAndPassword(email, password))
 
   create = (data: User) => this.collection.add(data);
 }
