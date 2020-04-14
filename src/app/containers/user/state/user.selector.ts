@@ -7,7 +7,7 @@ import { UserState } from './user-state.model';
 })
 export class UserSelector {
   private getUserFeatureState = createFeatureSelector<UserState>(
-    'user'
+    'users'
   );
 
   public getCurrentUser = createSelector(
