@@ -18,7 +18,7 @@ import { ComponentsModule } from './components/components-module';
 import { AppRouteModule } from './app.routing';
 import { environment } from 'src/environments/environment';
 
-import {  MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +26,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { UserModule } from './containers/user/user.module';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AppRouteModule
   ],
   exports: [
-    ComponentsModule
+    ComponentsModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
