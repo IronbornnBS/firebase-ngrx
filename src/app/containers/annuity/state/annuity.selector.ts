@@ -5,7 +5,7 @@ import { AnnuityState } from './annuity-state.model';
 @Injectable({
   providedIn: 'root',
 })
-export class AnnuitySeletor {
+export class AnnuitySelector {
   private getAnnuitiesFeatureState = createFeatureSelector<AnnuityState>(
     'annuities'
   );
