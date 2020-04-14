@@ -20,7 +20,7 @@ export class AnnuityEffect {
     ofType(AnnuitiesActionTypes.Load),
     mergeMap((action: annuitiesActions.Load) =>
       this.annuityService.get().pipe(
-        map((data) => data.map((annuities) => new annuitiesActions.LoadSuccess([annuities.payload.doc.data()]) ),
+        map(data => new annuitiesActions.LoadSuccess(data.map(annuities => annuities.payload.doc.data())),
         catchError(err => of(new annuitiesActions.LoadFail(err)))
       )
     )
