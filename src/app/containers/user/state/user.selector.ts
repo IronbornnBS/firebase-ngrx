@@ -14,4 +14,9 @@ export class UserSelector {
     this.getUserFeatureState,
     state => state.uid
   );
+
+  public getError = createSelector(
+    this.getUserFeatureState,
+    state => state.error
+  );
 }
