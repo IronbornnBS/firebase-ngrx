@@ -36,9 +36,9 @@ export class UserEffect {
       this.userService
         .register(user.email, user.password)
         .pipe(
-          map(data => new userActions.LoginSuccess(data.user.uid)),
+          map(data => new userActions.RegisterSuccess(data.user.uid)),
           tap(() => this.route.navigate(['/annuity-list'])),
-          catchError(error => of(new userActions.LoginFail(error)))
+          catchError(error => of(new userActions.RegisterFail(error)))
         )
     )
   );
