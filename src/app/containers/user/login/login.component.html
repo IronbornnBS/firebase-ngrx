@@ -12,9 +12,9 @@
         </div>
         <form #formData='ngForm' autocomplete="off" class="form-group">
           <br />
-          <div class="incorrect-credentials alert alert-danger" role="alert" id="incorrect-text"
-            [style.visibility]="loginFailedMsg !== '' ? 'visible' : 'hidden'">
-            {{loginFailedMsg}}
+          <div *ngIf="errorMessage$ | async as errorMessage" class="incorrect-credentials alert alert-danger" role="alert" id="incorrect-text"
+            [style.visibility]="errorMessage !== '' ? 'visible' : 'hidden'">
+            {{errorMessage}}
           </div>
           <div>
             <div>

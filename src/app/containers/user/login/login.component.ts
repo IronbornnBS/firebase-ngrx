@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../../state/app.state';
 import * as userActions from '../state/user.actions';
 import { UserSelector } from '../state/user.selector';
-import { takeWhile } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +15,9 @@ import { takeWhile } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   user: User = {
     email: '',
-    username: '',
-    fullName: '',
     password: ''
   };
-  loginFailedMsg: string;
-  error: string;
+  errorMessage$: Observable<string>;
   constructor(
     private route: Router,
     private store: Store<fromRoot.State>,
@@ -28,14 +25,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loginFailedMsg = '';
-    this.store.pipe(
-      select(this.userSelector.getCurrentUser))
-      .subscribe( currentProduct => currentProduct );
+    this.errorMessage$ = this.store.pipe(select(this.userSelector.getError));
   }
   async onSubmit(data) {
-    this.loginFailedMsg = '';
-    this.error = '';
     this.user.email = data.value.Email;
     this.user.password = data.value.Password;
     this.store.dispatch(new userActions.Login(this.user));
