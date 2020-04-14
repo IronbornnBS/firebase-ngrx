@@ -4,12 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
-import { LoginComponent } from './containers/user/login/login.component';
-import { RegisterComponent } from './containers/user/register/register.component';
+import { AuthGuard } from './app.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
   {
     path: '',
     redirectTo: 'annuity-list',
@@ -24,7 +21,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./layout/admin-layout/admin-layout.module').then(
             (m) => m.AdminLayoutModule
-          ),
+          ), canActivate: [AuthGuard]
       },
     ],
   },
