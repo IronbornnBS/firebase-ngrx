@@ -1,0 +1,56 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8" style="margin: auto;">
+        <div class="card">
+          <div class="card-header card-header-pills table-header">
+            <h4 class="card-title">Annuity Customer</h4>
+            <p class="card-category">Update Record</p>
+          </div>
+          <div class="card-body">
+            <form #formData="ngForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Entity ID" type="text" [(ngModel)]="annuity.EntityId" name="EntityId"
+                      required data-success=" " data-error="Please enter valid entity ID" (ngInput)="onFormChanged()"
+                      minlength="19" disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Full Name" type="text" [(ngModel)]="annuity.EntityFullName"
+                      name="EntityFullName" required data-success=" " data-error="Please enter valid client Name"
+                      (input)="onFormChanged()" minlength="1">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <input matInput placeholder={{annuity.StartDate}} [matDatepicker]="startDate"
+                      [(ngModel)]="annuity.StartDate" name="startDate" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Annuity Amount" type="text" [(ngModel)]="annuity.AnnuityAmount"
+                      name="AnnuityAmount" required data-success=" " data-error="Please enter valid amount."
+                      (input)="onFormChanged()" minlength="1">
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" class="btn btn-primary-variant pull-right"
+                [(disabled)]="!formValid" (click)="onSubmit(formData.value)">Update</button>
+              <button mat-raised-button class="btn btn-danger pull-right"
+                (click)="deleteCustomer()">Delete</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
