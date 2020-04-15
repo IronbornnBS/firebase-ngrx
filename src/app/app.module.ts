@@ -33,7 +33,7 @@ import { UserModule } from './containers/user/user.module';
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,

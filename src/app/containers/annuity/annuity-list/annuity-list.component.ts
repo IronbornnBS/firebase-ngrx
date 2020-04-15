@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import { AnnuityService } from 'src/app/shared/services/annuity.service';
+import { Router } from '@angular/router';
 import { Annuity } from 'src/app/_interfaces/annuity.model';
 import { Store, select } from '@ngrx/store';
 import { AnnuitySelector } from '../state/annuity.selector';
@@ -54,11 +53,7 @@ export class AnnuityListComponent implements OnInit {
   }
 
   UpdateStore(data) {
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        id: data,
-      },
-    };
-    this.route.navigate(['/edit-annuity'], navigationExtras);
+    this.store.dispatch(new annuityActions.SetCurrentAnnuity(data));
+    this.route.navigate(['/edit-annuity']);
   }
 }
