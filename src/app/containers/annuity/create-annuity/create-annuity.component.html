@@ -16,7 +16,7 @@
                       matInput
                       placeholder="Entity ID"
                       type="text"
-                      [(ngModel)]="annuity.EntityId"
+                      [(ngModel)]="annuity.entityId"
                       name="EntityId"
                     />
                   </mat-form-field>
@@ -27,7 +27,7 @@
                       matInput
                       placeholder="Full Name"
                       type="text"
-                      [(ngModel)]="annuity.EntityFullName"
+                      [(ngModel)]="annuity.entityFullName"
                       name="EntityFullName"
                     />
                   </mat-form-field>
@@ -40,7 +40,7 @@
                       matInput
                       placeholder="Start Date"
                       [matDatepicker]="startDate"
-                      [(ngModel)]="annuity.StartDate"
+                      [(ngModel)]="annuity.startDate"
                       name="startDate"
                     />
                     <mat-datepicker-toggle
@@ -56,41 +56,12 @@
                       matInput
                       placeholder="Annuity Amount"
                       type="text"
-                      [(ngModel)]="annuity.AnnuityAmount"
+                      [(ngModel)]="annuity.annuityAmount"
                       name="AnnuityAmount"
                     />
                   </mat-form-field>
                 </div>
               </div>
-              <!-- <div class="row">
-                <div class="col-md-4">
-                  <mat-form-field>
-                  <select matNativeControl required [(ngModel)]="client.productCategory" name="productCategory">
-                    <option value="" disabled>Product Category</option>
-                    <option value="Exisiting Qlik Sense">Exisiting Qlik Sense</option>
-                    <option value="Production Sites">Production Sites</option>
-                    <option value="Qlik Sense">Qlik Sense</option>
-                  </select>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                  <mat-form-field>
-                    <select matNativeControl required [(ngModel)]="client.product" name="product">
-                      <option value="" disabled>Product</option>
-                      <option value="QlikView">QlikView</option>
-                    </select>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                  <mat-form-field>
-                    <select matNativeControl required [(ngModel)]="client.item" name="item">
-                      <option value="" disabled>Item</option>
-                      <option value="Qlik Sense Enterprise">Qlik Sense Enterprise</option>
-                      <option value="Qlik Sense Production">Qlik Sense Production</option>
-                    </select>
-                  </mat-form-field>
-                </div>
-              </div> -->
               <button
                 mat-raised-button
                 type="submit"

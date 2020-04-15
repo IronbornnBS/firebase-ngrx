@@ -14,12 +14,12 @@ import { Store } from '@ngrx/store';
 export class CreateAnnuityComponent implements OnInit {
 
   annuity: Annuity = {
-    EntityId: '',
-    EntityFullName: '',
-    StartDate: '',
-    AnniversaryDate: '',
-    RenewalDate: '',
-    AnnuityAmount: 0,
+    entityId: '',
+    entityFullName: '',
+    startDate: '',
+    anniversaryDate: '',
+    renewalDate: '',
+    annuityAmount: 0,
   };
   constructor(private store: Store<fromRoot.State>,
               private route: Router) { }
@@ -28,9 +28,9 @@ export class CreateAnnuityComponent implements OnInit {
   }
 
   onSubmit() {
-    this.annuity.StartDate = moment(this.annuity.StartDate).format('LL');
-    this.annuity.AnniversaryDate = moment(this.annuity.StartDate).add(1, 'year').format('LL');
-    this.annuity.RenewalDate = moment(this.annuity.AnniversaryDate).subtract(1, 'month').format('LL');
+    this.annuity.startDate = moment(this.annuity.startDate).format('LL');
+    this.annuity.anniversaryDate = moment(this.annuity.startDate).add(1, 'year').format('LL');
+    this.annuity.renewalDate = moment(this.annuity.anniversaryDate).subtract(1, 'month').format('LL');
 
     this.store.dispatch(new annuityActions.CreateAnnuity(this.annuity));
   }

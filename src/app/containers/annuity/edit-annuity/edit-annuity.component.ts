@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Annuity } from 'src/app/_interfaces/annuity.model';
 import { Router } from '@angular/router';
 import { ToastrManager } from 'ng6-toastr-notifications';
-import * as moment from 'moment';
 import * as fromRoot from '../../../state/app.state';
 import * as annuityActions from '../state/annuity.actions';
 import { Store, select } from '@ngrx/store';
@@ -31,12 +30,12 @@ export class EditAnnuityComponent implements OnInit {
 
   onSubmit(data) {
      const a: Annuity = {
-      AnniversaryDate: this.annuity.AnniversaryDate,
-      EntityFullName: data.EntityFullName,
-      EntityId: this.annuity.EntityId,
-      AnnuityAmount: data.AnnuityAmount,
-      RenewalDate: this.annuity.RenewalDate,
-      StartDate: this.annuity.StartDate
+      anniversaryDate: this.annuity.anniversaryDate,
+      entityFullName: data.EntityFullName,
+      entityId: this.annuity.entityId,
+      annuityAmount: data.AnnuityAmount,
+      renewalDate: this.annuity.renewalDate,
+      startDate: this.annuity.startDate
     };
      this.store.dispatch(new annuityActions.UpdateAnnuity(a));
 
@@ -49,15 +48,15 @@ export class EditAnnuityComponent implements OnInit {
   onFormChanged() {
 
     if (
-      this.annuity.EntityId === undefined ||
-      this.annuity.EntityFullName === undefined ||
-      this.annuity.AnnuityAmount === undefined
+      this.annuity.entityId === undefined ||
+      this.annuity.entityFullName === undefined ||
+      this.annuity.annuityAmount === undefined
     ) {
       return;
     }
 
 
-    if (this.annuity.EntityFullName.length > 0) {
+    if (this.annuity.entityFullName.length > 0) {
           this.formValid = true;
       } else {
         this.formValid = false;

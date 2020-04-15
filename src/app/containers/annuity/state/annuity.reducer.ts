@@ -30,7 +30,7 @@ export function reducer(state = initialState, action: AnnuityActions) {
     case AnnuitiesActionTypes.SetCurrentAnnuity:
       return {
         ...state,
-        currentAnnuityId: action.payload.EntityId,
+        currentAnnuityId: action.payload.entityId,
       };
     case AnnuitiesActionTypes.CreateAnnuitySuccess:
       return {

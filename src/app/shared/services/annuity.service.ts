@@ -12,14 +12,14 @@ export class AnnuityService {
   collection: AngularFirestoreCollection<Annuity>;
 
   constructor(private firestore: AngularFirestore) {
-    this.collection = this.firestore.collection(this.path, ref => ref.orderBy('EntityFullName'));
+    this.collection = this.firestore.collection(this.path, ref => ref.orderBy('entityFullName'));
    }
 
-  create = (annuity: Annuity) => from(this.collection.doc(annuity.EntityId).set(annuity));
+  create = (annuity: Annuity) => from(this.collection.doc(annuity.entityId).set(annuity));
 
   get = () => this.collection.snapshotChanges();
 
-  update = (annuity: Annuity) => from(this.firestore.doc(`/${this.path}/${annuity.EntityId}`).update(annuity));
+  update = (annuity: Annuity) => from(this.firestore.doc(`/${this.path}/${annuity.entityId}`).update(annuity));
 
   delete = (id: string) => from( this.firestore.doc(`/${this.path}/${id}`).delete());
 }

@@ -24,12 +24,12 @@ export class AnnuityListComponent implements OnInit {
 
   customers$: Observable<Annuity[]>;
   customer: Annuity = {
-    EntityId: '',
-    EntityFullName: '',
-    StartDate: '',
-    AnniversaryDate: '',
-    RenewalDate: '',
-    AnnuityAmount: 0,
+    entityId: '',
+    entityFullName: '',
+    startDate: '',
+    anniversaryDate: '',
+    renewalDate: '',
+    annuityAmount: 0,
   };
 
   public selectedName: any;

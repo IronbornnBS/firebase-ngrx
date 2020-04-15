@@ -1,9 +1,8 @@
 export class Annuity {
-  id?: string;
-  EntityId: string;
-  EntityFullName: string;
-  StartDate: string;
-  AnniversaryDate: string;
-  RenewalDate: string;
-  AnnuityAmount: number;
+  entityId: string;
+  entityFullName: string;
+  startDate: string;
+  anniversaryDate: string;
+  renewalDate: string;
+  annuityAmount: number;
 }

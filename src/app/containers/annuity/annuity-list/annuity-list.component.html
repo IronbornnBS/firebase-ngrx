@@ -19,12 +19,12 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let client of customers" (click)="UpdateStore(client)" class="tableRow">
-                    <td>{{client.EntityFullName}}</td>
-                    <td>{{client.EntityId}}</td>
-                    <td>R {{client.AnnuityAmount}}</td>
-                    <td>{{client.StartDate}}</td>
-                    <td>{{client.AnniversaryDate}}</td>
-                    <td>{{client.RenewalDate}}</td>
+                    <td>{{client.entityFullName}}</td>
+                    <td>{{client.entityId}}</td>
+                    <td>R {{client.annuityAmount}}</td>
+                    <td>{{client.startDate}}</td>
+                    <td>{{client.anniversaryDate}}</td>
+                    <td>{{client.renewalDate}}</td>
                   </tr>
                 </tbody>
               </table>

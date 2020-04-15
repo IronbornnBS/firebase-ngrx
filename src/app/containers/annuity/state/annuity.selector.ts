@@ -21,16 +21,15 @@ export class AnnuitySelector {
     (state, currentAnnuityId) => {
       if ( currentAnnuityId === '') {
         return {
-          id: '',
-          EntityId: '',
-          EntityFullName: '',
-          StartDate: '',
-          AnniversaryDate: '',
-          RenewalDate: '',
-          AnnuityAmount: 0
+          entityId: '',
+          entityFullName: '',
+          startDate: '',
+          anniversaryDate: '',
+          renewalDate: '',
+          annuityAmount: 0
         };
       } else {
-        return currentAnnuityId ? state.annuities.find(p => p.EntityId === currentAnnuityId) : null;
+        return currentAnnuityId ? state.annuities.find(p => p.entityId === currentAnnuityId) : null;
       }
     }
   );
