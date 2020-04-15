@@ -9,10 +9,13 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from 'src/app/containers/annuity/state/annuity.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AnnuityEffect } from 'src/app/containers/annuity/state/annuity.effects';
+import { CreateAnnuityComponent } from 'src/app/containers/annuity/create-annuity/create-annuity.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
   imports: [
+    SharedModule,
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     StoreModule.forFeature('annuities', reducer),
@@ -21,6 +24,7 @@ import { AnnuityEffect } from 'src/app/containers/annuity/state/annuity.effects'
   exports: [],
   declarations: [
     AnnuityListComponent,
+    CreateAnnuityComponent,
     MaintainanceListComponent
   ],
   providers: [],
