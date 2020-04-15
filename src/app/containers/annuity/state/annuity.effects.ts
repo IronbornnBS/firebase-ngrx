@@ -7,12 +7,14 @@ import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Annuity } from 'src/app/_interfaces/annuity.model';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnnuityEffect {
   constructor(
+    private route: Router,
     private actions$: Actions,
     private annuityService: AnnuityService,
     public toastr: ToastrManager,
@@ -52,6 +54,22 @@ updateAnnuity$ = this.actions$.pipe(
       map(() => (new annuitiesActions.UpdateAnnuitySuccess())),
       tap( () => this.toastr.successToastr('Updated successfully', 'Success!')),
       catchError(error => of(new annuitiesActions.UpdateAnnuityFail(error)))
+    )
+  )
+);
+
+@Effect()
+DeleteOwner$ = this.actions$.pipe(
+  ofType(AnnuitiesActionTypes.DeleteAnnuity),
+  map((action: annuitiesActions.DeleteAnnuity) => action.payload),
+  mergeMap((id: string) =>
+    this.annuityService.delete(id).pipe(
+      map(() => new annuitiesActions.DeleteAnnuitySuccess()),
+      tap( () => {
+        this.toastr.successToastr('Annuity Customer Deleted successfully', 'Success!');
+        this.route.navigate(['']);
+      }),
+      catchError((err) => of(new annuitiesActions.DeleteAnnuityFail(err)))
     )
   )
 );

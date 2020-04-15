@@ -42,7 +42,8 @@ export class EditAnnuityComponent implements OnInit {
 
   }
 
-  deleteCustomer() {
+  deleteCustomer(id: string) {
+    this.store.dispatch(new annuityActions.DeleteAnnuity(id));
   }
 
   onFormChanged() {
@@ -55,18 +56,12 @@ export class EditAnnuityComponent implements OnInit {
       return;
     }
 
-    if (this.annuity.EntityId.length === 19) {
-      if (this.annuity.EntityFullName.length > 0) {
-        // if (this.annuity.AnnuityAmount >= 0) {
+
+    if (this.annuity.EntityFullName.length > 0) {
           this.formValid = true;
-        // } else {
-        //   this.formValid = false;
-        // }
       } else {
         this.formValid = false;
       }
-    } else {
-      this.formValid = false;
-    }
+
   }
 }

@@ -74,8 +74,6 @@ export class DeleteAnnuity implements Action {
 
 export class DeleteAnnuitySuccess implements Action {
   readonly type = AnnuitiesActionTypes.DeleteAnnuitySuccess;
-
-  constructor(public payload: string) { }
 }
 
 export class DeleteAnnuityFail implements Action {
