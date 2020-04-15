@@ -21,5 +21,5 @@ export class AnnuityService {
 
   update = (annuity: Annuity) => from(this.firestore.doc(`/${this.path}/${annuity.EntityId}`).update(annuity));
 
-  delete = (id: string) => this.firestore.doc(`${this.path}/${id}`).delete();
+  delete = (id: string) => from( this.firestore.doc(`/${this.path}/${id}`).delete());
 }
