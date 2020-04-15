@@ -27,11 +27,16 @@ export function reducer(state = initialState, action: AnnuityActions) {
         ...state,
         currentAnnuityId: '',
       };
+    case AnnuitiesActionTypes.SetCurrentAnnuity:
+      return {
+        ...state,
+        currentAnnuityId: action.payload.EntityId,
+      };
     case AnnuitiesActionTypes.CreateAnnuitySuccess:
       return {
         ...state,
-        annuities: [...state.annuities, action.payload],
-        currentAnnuitiesId: action.payload.id,
+        annuities: [...state.annuities],
+        currentAnnuitiesId: '',
         error: '',
       };
     case AnnuitiesActionTypes.CreateAnnuityFail:

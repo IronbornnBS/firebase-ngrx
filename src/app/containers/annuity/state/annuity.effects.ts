@@ -36,9 +36,22 @@ createAnnuity$ = this.actions$.pipe(
   map((action: annuitiesActions.CreateAnnuity) => action.payload),
   mergeMap((annuity: Annuity) =>
     this.annuityService.create(annuity).pipe(
-      map(newProduct => (new annuitiesActions.CreateAnnuitySuccess(newProduct))),
+      map( () => (new annuitiesActions.CreateAnnuitySuccess())),
       tap( () => this.toastr.successToastr('Created successfully', 'Success!')),
       catchError(error => of(new annuitiesActions.CreateAnnuityFail(error)))
+    )
+  )
+);
+
+@Effect()
+updateAnnuity$ = this.actions$.pipe(
+  ofType(AnnuitiesActionTypes.UpdateAnnuity),
+  map((action: annuitiesActions.UpdateAnnuity) => action.payload),
+  mergeMap((annuity: Annuity) =>
+    this.annuityService.update(annuity).pipe(
+      map(() => (new annuitiesActions.UpdateAnnuitySuccess())),
+      tap( () => this.toastr.successToastr('Updated successfully', 'Success!')),
+      catchError(error => of(new annuitiesActions.UpdateAnnuityFail(error)))
     )
   )
 );

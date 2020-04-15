@@ -41,8 +41,6 @@ export class UpdateAnnuity implements Action {
 
 export class UpdateAnnuitySuccess implements Action {
   readonly type = AnnuitiesActionTypes.UpdateAnnuitySuccess;
-
-  constructor(public payload: Annuity) { }
 }
 
 export class UpdateAnnuityFail implements Action {
@@ -60,7 +58,6 @@ export class CreateAnnuity implements Action {
 export class CreateAnnuitySuccess implements Action {
   readonly type = AnnuitiesActionTypes.CreateAnnuitySuccess;
 
-  constructor(public payload: DocumentReference) { }
 }
 
 export class CreateAnnuityFail implements Action {
