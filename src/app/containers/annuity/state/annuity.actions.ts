@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { AnnuitiesActionTypes } from './annuity.type';
 import { Annuity } from '../../../_interfaces/annuity.model';
+import { DocumentReference } from '@angular/fire/firestore/interfaces';
 
 export class Load implements Action {
   readonly type = AnnuitiesActionTypes.Load;
@@ -59,7 +60,7 @@ export class CreateAnnuity implements Action {
 export class CreateAnnuitySuccess implements Action {
   readonly type = AnnuitiesActionTypes.CreateAnnuitySuccess;
 
-  constructor(public payload: Annuity) { }
+  constructor(public payload: DocumentReference) { }
 }
 
 export class CreateAnnuityFail implements Action {
