@@ -1,0 +1,117 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8" style="margin: auto;">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Annuity Customer</h4>
+            <p class="card-category">Complete Record</p>
+          </div>
+          <div class="card-body">
+            <form #formData="ngForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="Entity ID"
+                      type="text"
+                      [(ngModel)]="annuity.EntityId"
+                      name="EntityId"
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="Full Name"
+                      type="text"
+                      [(ngModel)]="annuity.EntityFullName"
+                      name="EntityFullName"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Start Date"
+                      [matDatepicker]="startDate"
+                      [(ngModel)]="annuity.StartDate"
+                      name="startDate"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="startDate"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="Annuity Amount"
+                      type="text"
+                      [(ngModel)]="annuity.AnnuityAmount"
+                      name="AnnuityAmount"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field>
+                  <select matNativeControl required [(ngModel)]="client.productCategory" name="productCategory">
+                    <option value="" disabled>Product Category</option>
+                    <option value="Exisiting Qlik Sense">Exisiting Qlik Sense</option>
+                    <option value="Production Sites">Production Sites</option>
+                    <option value="Qlik Sense">Qlik Sense</option>
+                  </select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <select matNativeControl required [(ngModel)]="client.product" name="product">
+                      <option value="" disabled>Product</option>
+                      <option value="QlikView">QlikView</option>
+                    </select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <select matNativeControl required [(ngModel)]="client.item" name="item">
+                      <option value="" disabled>Item</option>
+                      <option value="Qlik Sense Enterprise">Qlik Sense Enterprise</option>
+                      <option value="Qlik Sense Production">Qlik Sense Production</option>
+                    </select>
+                  </mat-form-field>
+                </div>
+              </div> -->
+              <button
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+                (click)="onSubmit()"
+              >
+                Create Record
+              </button>
+              <button
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+                (click)="clearFields()"
+              >
+                Clear Record
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
