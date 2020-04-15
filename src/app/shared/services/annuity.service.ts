@@ -15,11 +15,11 @@ export class AnnuityService {
     this.collection = this.firestore.collection(this.path, ref => ref.orderBy('EntityFullName'));
    }
 
-  create = (annuity: Annuity) => from(this.collection.add(annuity));
+  create = (annuity: Annuity) => from(this.collection.doc(annuity.EntityId).set(annuity));
 
   get = () => this.collection.snapshotChanges();
 
-  update = (annuity: Annuity) => this.firestore.doc(`${this.path}/${annuity.id}`).update(annuity);
+  update = (annuity: Annuity) => from(this.firestore.doc(`/${this.path}/${annuity.EntityId}`).update(annuity));
 
   delete = (id: string) => this.firestore.doc(`${this.path}/${id}`).delete();
 }
