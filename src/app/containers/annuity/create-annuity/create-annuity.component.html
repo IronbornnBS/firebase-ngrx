@@ -1,0 +1,88 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8" style="margin: auto;">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Annuity Customer</h4>
+            <p class="card-category">Complete Record</p>
+          </div>
+          <div class="card-body">
+            <form #formData="ngForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="Entity ID"
+                      type="text"
+                      [(ngModel)]="annuity.entityId"
+                      name="EntityId"
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="Full Name"
+                      type="text"
+                      [(ngModel)]="annuity.entityFullName"
+                      name="EntityFullName"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Start Date"
+                      [matDatepicker]="startDate"
+                      [(ngModel)]="annuity.startDate"
+                      name="startDate"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="startDate"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="Annuity Amount"
+                      type="text"
+                      [(ngModel)]="annuity.annuityAmount"
+                      name="AnnuityAmount"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+                (click)="onSubmit()"
+              >
+                Create Record
+              </button>
+              <button
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+                (click)="clearFields()"
+              >
+                Clear Record
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

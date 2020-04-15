@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ng6-toastr-notifications';
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -31,7 +33,7 @@ import { UserModule } from './containers/user/user.module';
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { UserModule } from './containers/user/user.module';
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
+    ToastrModule.forRoot(),
     ComponentsModule,
     MatFormFieldModule,
     MatButtonModule,
