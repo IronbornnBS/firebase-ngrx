@@ -6,6 +6,7 @@ import * as annuitiesActions from './annuity.actions';
 import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Annuity } from 'src/app/_interfaces/annuity.model';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ import { Annuity } from 'src/app/_interfaces/annuity.model';
 export class AnnuityEffect {
   constructor(
     private actions$: Actions,
-    private annuityService: AnnuityService
+    private annuityService: AnnuityService,
+    public toastr: ToastrManager,
   ) {}
 
   @Effect()
@@ -35,9 +37,7 @@ createAnnuity$ = this.actions$.pipe(
   mergeMap((annuity: Annuity) =>
     this.annuityService.create(annuity).pipe(
       map(newProduct => (new annuitiesActions.CreateAnnuitySuccess(newProduct))),
-      tap( () => {
-        // toast message for success creation
-      }),
+      tap( () => this.toastr.successToastr('Created successfully', 'Success!')),
       catchError(error => of(new annuitiesActions.CreateAnnuityFail(error)))
     )
   )
