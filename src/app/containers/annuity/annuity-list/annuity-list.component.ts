@@ -35,7 +35,6 @@ export class AnnuityListComponent implements OnInit {
 
   public selectedName: any;
   constructor(private route: Router,
-              private annuityService: AnnuityService,
               private store: Store<fromRoot.State>,
               private annuitySelector: AnnuitySelector) {}
 
@@ -50,16 +49,8 @@ export class AnnuityListComponent implements OnInit {
   }
 
   createAnnuityCustomer() {
-    this.customer.AnniversaryDate = 'April 26, 2019';
-    this.customer.AnnuityAmount = 23425;
-    this.customer.EntityFullName = 'Jag';
-    this.customer.EntityId = '80000129-1512119372';
-    this.customer.RenewalDate = 'March 26, 2019';
-    this.customer.StartDate = 'April 26, 2018';
-
-    this.annuityService.create(this.customer).then( res => {
-      console.log(res);
-    });
+    this.store.dispatch(new annuityActions.InitializeCurrentAnnuity());
+    this.route.navigate(['/create-annuity']);
   }
 
   UpdateStore(data) {

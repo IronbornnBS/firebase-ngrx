@@ -5,7 +5,7 @@ import { AnnuitiesActionTypes } from './annuity.type';
 const initialState: AnnuityState = {
   currentAnnuityId: '',
   annuities: [],
-  error: ''
+  error: '',
 };
 
 export function reducer(state = initialState, action: AnnuityActions) {
@@ -14,18 +14,30 @@ export function reducer(state = initialState, action: AnnuityActions) {
       return {
         ...state,
         annuities: action.payload,
-        error: ''
+        error: '',
       };
     case AnnuitiesActionTypes.LoadFail:
       return {
         ...state,
         annuities: [],
-        error: action.payload
+        error: action.payload,
       };
     case AnnuitiesActionTypes.InitializeCurrentAnnuity:
       return {
         ...state,
-        currentAnnuityId: ''
+        currentAnnuityId: '',
+      };
+    case AnnuitiesActionTypes.CreateAnnuitySuccess:
+      return {
+        ...state,
+        annuities: [...state.annuities, action.payload],
+        currentAnnuitiesId: action.payload.id,
+        error: '',
+      };
+    case AnnuitiesActionTypes.CreateAnnuityFail:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;
