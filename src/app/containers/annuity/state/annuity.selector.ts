@@ -30,7 +30,7 @@ export class AnnuitySelector {
           AnnuityAmount: 0
         };
       } else {
-        return currentAnnuityId ? state.annuities.find(p => p.id === currentAnnuityId) : null;
+        return currentAnnuityId ? state.annuities.find(p => p.EntityId === currentAnnuityId) : null;
       }
     }
   );
