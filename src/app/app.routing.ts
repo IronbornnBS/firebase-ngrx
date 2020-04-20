@@ -1,34 +1,21 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
-
-import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
-import { AuthGuard } from './app.guard';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { LoginComponent } from './auth/components/login/login.component';
+import { RegisterComponent } from './auth/components/register/register.component';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'annuity-list',
-    pathMatch: 'full',
+    path: 'login',
+    component: LoginComponent
   },
   {
-    path: '',
-    component: AdminLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-          import('./layout/admin-layout/admin-layout.module').then(
-            (m) => m.AdminLayoutModule
-          ), // canActivate: [AuthGuard]
-      },
-    ],
-  },
+    path: 'register',
+    component: RegisterComponent
+  }
 ];
 
 @NgModule({
-  imports: [CommonModule, BrowserModule, RouterModule.forRoot(routes)],
-  exports: [],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  exports: [RouterModule],
 })
 export class AppRouteModule {}

@@ -1,0 +1,81 @@
+<div class="main-content">
+  <div class="col-sm-6 col-md-3" style="margin: auto;">
+    <div class="card">
+      <div class="card-header card-header-pills table-header">
+        <h3 class="card-title">Registration</h3>
+        <h5 class="card-category">Complete Record</h5>
+      </div>
+      <div class="card-body">
+        <br />
+        <div>
+          <img
+            src="../../assets/img/faces/register.svg"
+            class="mx-auto d-block user-image"
+          />
+        </div>
+        <div
+          *ngIf="error$ | async as errorMessage"
+          class="incorrect-credentials alert alert-danger"
+          role="alert"
+          id="incorrect-text"
+          [style.visibility]="errorMessage !== '' ? 'visible' : 'hidden'"
+        >
+          {{ errorMessage }}
+        </div>
+        <form [formGroup]="registerForm" class="form-group">
+
+          <mat-form-field class="user-input">
+            <input
+              matInput
+              placeholder="Username"
+              type="text"
+              formControlName="username"
+              id="username"
+              required
+              minlength="4"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="user-input">
+            <input
+              matInput
+              placeholder="E-mail"
+              type="email"
+              formControlName="email"
+              id="email"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field class="user-input">
+            <input
+              matInput
+              placeholder="Password"
+              type="password"
+              formControlName="password"
+              id="password"
+              required
+            />
+          </mat-form-field>
+        </form>
+        <div class="col-md-12">
+          <button
+            mat-button
+            type="submit"
+            matRipple
+            class="btn col-md-12"
+            (click)="onRegister()"
+          >
+            Register
+          </button>
+        </div>
+        <br />
+        <footer>
+            <p class="row justify-content-center">Already have an account? &nbsp;
+              <a routerLink="/login"><strong>Log in</strong></a>
+            </p>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="main-content">
+  <div class="col-sm-6 col-md-3" style="margin: auto;">
+    <div class="card">
+      <div class="card-header card-header-pills table-header">
+        <h3 class="card-title">Login</h3>
+        <h5 class="card-category">Complete Record</h5>
+      </div>
+      <div class="card-body">
+        <br />
+        <div>
+          <img
+            src="../../assets/img/faces/user.png"
+            class="mx-auto d-block user-image"
+          />
+        </div>
+        <form [formGroup]="loginForm" autocomplete="off" class="form-group">
+          <br />
+          <div
+            *ngIf="error$ | async as errorMessage"
+            class="incorrect-credentials alert alert-danger"
+            role="alert"
+            id="incorrect-text"
+            [style.visibility]="errorMessage !== '' ? 'visible' : 'hidden'"
+          >
+            {{ errorMessage }}
+          </div>
+          <div>
+            <div>
+              <mat-form-field class="user-input">
+                <input
+                  matInput
+                  placeholder="E-mail"
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  required
+                  minlength="4"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <div>
+              <mat-form-field class="user-input">
+                <input
+                  matInput
+                  placeholder="Password"
+                  type="password"
+                  id="password"
+                  formControlName="password"
+                  required
+                  minlength="4"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+        <div class="col-md-12">
+          <button
+            mat-button
+            type="submit"
+            matRipple
+            class="btn col-md-12 waves-effect primary-button"
+            (click)="onLogin()"
+          >
+            Login
+          </button>
+        </div>
+        <br />
+
+        <footer>
+          <p class="row justify-content-center">
+            Not a member?&nbsp;
+            <a routerLink="/register"><strong>Register</strong></a>
+          </p>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>
