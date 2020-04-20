@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { from } from 'rxjs';
 import {
   AngularFirestoreCollection,
   AngularFirestore,
-} from '@angular/fire/firestore/public_api';
+} from '@angular/fire/firestore';
 import { User } from '../models/user.model';
 
 @Injectable({
