@@ -15,14 +15,8 @@
         </div>
         <form [formGroup]="loginForm" autocomplete="off" class="form-group">
           <br />
-          <div
-            *ngIf="error$ | async as errorMessage"
-            class="incorrect-credentials alert alert-danger"
-            role="alert"
-            id="incorrect-text"
-            [style.visibility]="errorMessage !== '' ? 'visible' : 'hidden'"
-          >
-            {{ errorMessage }}
+          <div *ngIf="error$ | async as error" class="alert alert-danger" role="alert">
+            {{ error }}
           </div>
           <div>
             <div>
