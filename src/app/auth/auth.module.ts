@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/auth.effects';
 import * as fromAuth from './store/auth.reducer';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -27,7 +28,8 @@ import * as fromAuth from './store/auth.reducer';
     EffectsModule.forFeature([AuthEffects]),
     MatFormFieldModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
+    MatButtonModule
   ]
 })
 export class AuthModule { }
