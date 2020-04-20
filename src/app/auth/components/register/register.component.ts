@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../reducers';
+import * as actions from './../../store/auth.actions';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +14,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   error$: Observable<string | null>;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -27,7 +30,7 @@ export class RegisterComponent implements OnInit {
     const password = this.registerForm.value.password;
 
     if (this.registerForm.valid) {
-      // dispatch store action to execute registration
+      this.store.dispatch(new actions.RegisterRequested({username, email, password}));
     }
   }
 
