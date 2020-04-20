@@ -1,8 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ng6-toastr-notifications';
 
@@ -15,35 +12,29 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
-import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
-import { ComponentsModule } from './components/components-module';
 import { AppRouteModule } from './app.routing';
 import { environment } from 'src/environments/environment';
 
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-import { MatRippleModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { UserModule } from './containers/user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AdminLayoutComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule,
-    FormsModule,
-    BrowserAnimationsModule,
+    AuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      },
+      metaReducers
+    }),
     StoreDevtoolsModule.instrument({
       name: 'Capture Demo App DevTools',
       maxAge: 25,
@@ -51,23 +42,8 @@ import { UserModule } from './containers/user/user.module';
     }),
     EffectsModule.forRoot([]),
     ToastrModule.forRoot(),
-    ComponentsModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     AppRouteModule
   ],
-  exports: [
-    ComponentsModule,
-    UserModule
-  ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
