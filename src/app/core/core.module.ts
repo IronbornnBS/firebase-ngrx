@@ -6,11 +6,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 
 @NgModule({
-  declarations: [HomeComponent, WelcomeComponent, DashboardComponent, HeaderComponent],
+  declarations: [HomeComponent, WelcomeComponent, DashboardComponent, HeaderComponent, SidebarComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -20,7 +21,8 @@ import { HeaderComponent } from './header/header.component';
     WelcomeComponent,
     HomeComponent,
     DashboardComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent
   ]
 })
 export class CoreModule { }
