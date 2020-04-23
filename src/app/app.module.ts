@@ -16,6 +16,7 @@ import { AppRouteModule } from './app.routing';
 import { environment } from 'src/environments/environment';
 
 import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core/core.module';
 import { reducers, metaReducers } from './reducers';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { reducers, metaReducers } from './reducers';
   imports: [
     BrowserModule,
     AuthModule,
+    CoreModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,

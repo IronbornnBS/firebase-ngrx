@@ -1,9 +1,7 @@
 import {AppState } from '../../reducers';
 import { createSelector } from '@ngrx/store';
 
-export const getAuthState = (state: AppState) => {
-  return state.auth;
-};
+export const getAuthState = (state: AppState) => state.auth;
 
 export const getUser = createSelector(
   getAuthState,

@@ -5,9 +5,9 @@ import { AuthService } from '../services/auth.service';
 import { GravatarService } from 'src/app/shared/services/gravatar.service';
 import { AuthActionTypes } from './auth.enum';
 import * as auth from './../store/auth.actions';
-import { switchMap, map, tap, catchError } from 'rxjs/operators';
+import { switchMap, map, tap, catchError, take } from 'rxjs/operators';
 import { User } from '../models/user.model';
-import { of } from 'rxjs';
+import { of, Observable, defer } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
@@ -22,12 +22,10 @@ export class AuthEffects {
   registerAction$ = this.actions$.pipe(
     ofType(AuthActionTypes.REGISTER_REQUESTED),
     map((action: auth.RegisterRequested) => action.payload),
-    switchMap((payload) =>
+    switchMap(payload =>
       this.authService.register(payload.email, payload.password).pipe(
-        map((res) => {
-          const gravatarUrl = this.gravatarService.getUserGravatar(
-            res.user.email
-          );
+        map((res: any) => {
+          const gravatarUrl = this.gravatarService.getUserGravatar(res.user.email);
           const user = {
             uid: res.user.uid,
             displayName: payload.username || res.user.displayName,
@@ -36,25 +34,20 @@ export class AuthEffects {
             photoUrl: res.user.photoURL || gravatarUrl,
             isNewUser: res.additionalUserInfo.isNewUser,
             isAdmin: false,
-            isOnline: true,
+            isOnline: true
           };
           return user;
         }),
-        switchMap((user: User) => {
+        switchMap( (user: User) => {
           return [
             new auth.RegisterCompleted(),
             new auth.LoginSuccess({ user }),
-            new auth.UpdateProfile({
-              displayName: payload.username,
-              photoUrl: user.photoUrl,
-            }),
-            new auth.SaveUser({ user }),
+            new auth.UpdateProfile({ displayName: payload.username, photoUrl: user.photoUrl }),
+            new auth.SaveUser( { user })
           ];
         }),
-        tap(() => {
-          this.router.navigate(['/']);
-        }),
-        catchError((error) => of(new auth.AuthError({ error })))
+        tap(() => { this.router.navigateByUrl(''); }),
+        catchError(error => of(new auth.AuthError({ error })))
       )
     )
   );
@@ -74,6 +67,43 @@ export class AuthEffects {
   );
 
   @Effect()
+  checkUserRole$ = this.actions$.pipe(
+    ofType(AuthActionTypes.CHECK_USER_ROLE),
+    map( (action: auth.CheckUserRole) => action.payload),
+    switchMap( (payload: any) => this.authService.checkUserRole(payload.uid)
+      .pipe(
+        map( (isAdmin: boolean) => {
+          return new auth.UpdateUserRole({ isAdmin });
+        }),
+        catchError( (error: any) => of(new auth.AuthError({ error })))
+      )
+    )
+  );
+
+  @Effect()
+  updateProfile$ = this.actions$.pipe(
+    ofType(AuthActionTypes.UPDATE_PROFILE),
+    map((action: auth.UpdateProfile) => action.payload),
+    switchMap((payload: any) =>
+      this.authService.updateProfile(payload.displayName, payload.photoUrl).pipe(
+        map( () => {
+          const currentUser: any = this.authService.getCurrentUser();
+          const updatedUser: any = {
+              uid: currentUser.uid || null,
+              displayName: currentUser.displayName || null,
+              email: currentUser.email || null,
+              providerId: currentUser.providerData[0].providerId || null,
+              photoUrl: currentUser.photoURL || null
+          };
+          return new auth.UpdateProfileSuccess( { user: updatedUser });
+        }),
+        catchError( (error) => of(new auth.AuthError(error)))
+      )
+    )
+  );
+
+
+  @Effect()
   loginAction$ = this.actions$.pipe(
     ofType(AuthActionTypes.LOGIN_REQUESTED),
     map((action: auth.LoginRequested) => action.payload),
@@ -90,10 +120,68 @@ export class AuthEffects {
           };
           return new auth.LoginSuccess( {user });
         }),
-        tap(() => this.router.navigateByUrl('/login')),
+        tap(() => this.router.navigateByUrl('')),
         catchError(error => of(new auth.AuthError({ error })))
       )
     )
   );
+
+  @Effect()
+  loginSuccess$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LOGIN_SUCCESS),
+    map( (action: auth.SaveUser) => action.payload),
+    switchMap( (payload: any) => {
+        return [
+          new auth.UpdateOnlineStatus({ uid: payload.user.uid, status: true }),
+          new auth.CheckUserRole( {uid: payload.user.uid })
+        ];
+    })
+  );
+
+  @Effect()
+  logoutAction$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LOGOUT_REQUESTED),
+    map( (action: auth.LogoutRequested) => action.payload),
+    switchMap((payload: any) => this.authService.logout()
+      .pipe(
+        map(() => (new auth.LogoutCompleted())),
+        tap(() => this.router.navigateByUrl('')),
+        catchError(error => {
+          return of(new auth.AuthError({ error }));
+        }
+        )
+      )
+    )
+  );
+
+  @Effect()
+  getUser$ = this.actions$.pipe(
+    ofType(AuthActionTypes.GET_USER),
+    switchMap(() => this.authService.getAuthState()
+      .pipe(
+        take(1),
+        map((authData: any) => {
+          if (authData) {
+            const user = {
+              uid: authData.uid,
+              displayName: authData.displayName,
+              email: authData.email,
+              providerId: authData.providerData[0].providerId,
+              photoUrl: authData.photoURL,
+            };
+            return new auth.LoginSuccess({ user });
+          } else {
+            return new auth.LoginFailed();
+          }
+        }),
+        catchError(error => of(new auth.AuthError({ error })))
+      )
+    )
+  );
+
+  @Effect()
+  init$: Observable<any> = defer(() => {
+    return of(new auth.GetUser());
+  });
 
 }

@@ -13,5 +13,5 @@ export const authInitialState: AuthState = {
   isAdmin: false,
   isLoggedIn: false,
   isLoading: true,
-  error: null,
+  error: null
 };

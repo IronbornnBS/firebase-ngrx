@@ -1,17 +1,17 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES } from '../side-bar/side-bar.component';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { ROUTES } from '../sidebar/sidebar.component';
 
 @Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.scss']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
-export class NavBarComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   private listTitles: any[];
   location: Location;
-  mobile_menu_visible: any = 0;
+  mobileMenuMisible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
 
@@ -29,7 +29,7 @@ export class NavBarComponent implements OnInit {
       const $layer: any = document.getElementsByClassName('close-layer')[0];
       if ($layer) {
         $layer.remove();
-        this.mobile_menu_visible = 0;
+        this.mobileMenuMisible = 0;
       }
     });
   }
@@ -37,7 +37,7 @@ export class NavBarComponent implements OnInit {
   sidebarOpen() {
     const toggleButton = this.toggleButton;
     const body = document.getElementsByTagName('body')[0];
-    setTimeout(function () {
+    setTimeout( () => {
       toggleButton.classList.add('toggled');
     }, 500);
 
@@ -63,16 +63,16 @@ export class NavBarComponent implements OnInit {
     }
     const body = document.getElementsByTagName('body')[0];
 
-    if (this.mobile_menu_visible === 1) {
+    if (this.mobileMenuMisible === 1) {
       // $('html').removeClass('nav-open');
       body.classList.remove('nav-open');
-      setTimeout(function () {
+      setTimeout(() => {
         $toggle.classList.remove('toggled');
       }, 400);
 
-      this.mobile_menu_visible = 0;
+      this.mobileMenuMisible = 0;
     } else {
-      setTimeout(function () {
+      setTimeout(() => {
         $toggle.classList.add('toggled');
       }, 430);
 
@@ -86,22 +86,22 @@ export class NavBarComponent implements OnInit {
         document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
       }
 
-      setTimeout(function () {
+      setTimeout(() => {
         $layer.classList.add('visible');
       }, 100);
 
-      $layer.onclick = function () { // asign a function
+      $layer.onclick = function() { // asign a function
         body.classList.remove('nav-open');
-        this.mobile_menu_visible = 0;
+        this.mobileMenuMisible = 0;
         $layer.classList.remove('visible');
-        setTimeout(function () {
+        setTimeout(() => {
           $layer.remove();
           $toggle.classList.remove('toggled');
         }, 400);
       }.bind(this);
 
       body.classList.add('nav-open');
-      this.mobile_menu_visible = 1;
+      this.mobileMenuMisible = 1;
 
     }
   }
@@ -113,11 +113,11 @@ export class NavBarComponent implements OnInit {
     }
     titlee = titlee.split('/').pop();
 
-    for (let item = 0; item < this.listTitles.length; item++) {
-      if (this.listTitles[item].path === titlee) {
-        return this.listTitles[item].title;
+    this.listTitles.forEach(items => {
+      if (items.path === titlee) {
+        return items.title;
       }
-    }
+    });
     return 'Dashboard';
   }
 }
