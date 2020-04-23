@@ -1,37 +1,26 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
-
-import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
-import { LoginComponent } from './containers/user/login/login.component';
-import { RegisterComponent } from './containers/user/register/register.component';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { LoginComponent } from './auth/components/login/login.component';
+import { RegisterComponent } from './auth/components/register/register.component';
+import { HomeComponent } from './core/home/home.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
   {
     path: '',
-    redirectTo: 'annuity-list',
-    pathMatch: 'full',
+    component: HomeComponent
   },
   {
-    path: '',
-    component: AdminLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-          import('./layout/admin-layout/admin-layout.module').then(
-            (m) => m.AdminLayoutModule
-          ),
-      },
-    ],
+    path: 'login',
+    component: LoginComponent
   },
+  {
+    path: 'register',
+    component: RegisterComponent
+  }
 ];
 
 @NgModule({
-  imports: [CommonModule, BrowserModule, RouterModule.forRoot(routes)],
-  exports: [],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  exports: [RouterModule],
 })
 export class AppRouteModule {}

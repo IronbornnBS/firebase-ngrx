@@ -1,40 +1,51 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { AppComponent } from './app.component';
-import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
-import { ComponentsModule } from './components/components-module';
 import { AppRouteModule } from './app.routing';
-import { LoginComponent } from './containers/user/login/login.component';
-import { RegisterComponent } from './containers/user/register/register.component';
-import { from } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
+import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core/core.module';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AdminLayoutComponent,
-    LoginComponent,
-    RegisterComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule,
+    AuthModule,
+    CoreModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    ComponentsModule,
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      },
+      metaReducers
+    }),
+    StoreDevtoolsModule.instrument({
+      name: 'Capture Demo App DevTools',
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([]),
+    ToastrModule.forRoot(),
     AppRouteModule
   ],
-  exports: [
-    ComponentsModule
-  ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
