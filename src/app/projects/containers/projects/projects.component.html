@@ -1,0 +1,10 @@
+<div *ngIf="projects$ | async" class="mt-4 white">
+  <app-projects-table
+    [projects]="customers"
+    (projectEdited)="onProjectEdit($event)"
+    (projectDeleted)="onProjectDelete($event)"
+  ></app-projects-table>
+</div>
+<a (click)="openAddProjectModal()"  class="float">
+  <i class="fa fa-plus my-float"></i>
+</a>
