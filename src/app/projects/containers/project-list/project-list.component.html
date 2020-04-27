@@ -1,0 +1,13 @@
+<div class="row">
+  <div
+    class="col-md-4"
+    *ngFor="let project of projects; trackBy: trackByFunction"
+  >
+    <app-project-card
+      [project]="project"
+      [editable]="editable"
+      (deleted)="onProjectDelete($event)"
+      (edited)="onProjectEdit($event)"
+    ></app-project-card>
+  </div>
+</div>
