@@ -1,0 +1,51 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-plain">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title mt-0">Table on Plain Background</h4>
+              <p class="card-category">Here is a subtitle for this table</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead class="">
+                    <th>
+                      ID
+                    </th>
+                    <th>
+                      title
+                    </th>
+                    <th>
+                      Description
+                    </th>
+                    <th>
+                      Actions
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let project of projects; let i = index; trackBy: trackByFn">
+                      <td>
+                        {{ i + 1 }}
+                      </td>
+                      <td>
+                        {{ project.title }}
+                      </td>
+                      <td>
+                        {{ project.description }}
+                      </td>
+                      <td>
+                        <a (click)="onEdit(project)" class="btn btn-warning mr-2"><i class="material-icons">edit</i></a>
+                        <a (click)="onDelete(project)" class="btn btn-danger" ><i class="material-icons">delete_forever</i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
