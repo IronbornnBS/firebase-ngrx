@@ -1,0 +1,9 @@
+
+  <h1 mat-dialog-title>Delete</h1>
+  <mat-dialog-content class="mat-typography">
+    <p>Are you sure you want to delete this item?</p>
+
+  <div mat-dialog-actions>
+    <a (click)="modalRef.close()" class="btn btn-warning mr-2">Cancel</a>
+    <a (click)="onDelete()" class="btn btn-danger">Delete!</a>
+  </div>
