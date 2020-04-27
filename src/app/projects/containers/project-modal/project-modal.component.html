@@ -1,0 +1,24 @@
+  <form #projectForm="ngForm">
+    <h1 mat-dialog-title>Create Project</h1>
+    <mat-dialog-content class="mat-typography">
+      <mat-form-field class="user-input">
+        <mat-label for="title">Title</mat-label>
+        <input matInput type="text" name="title" id="title" [(ngModel)]="data.title" #title="ngModel" required>
+      </mat-form-field>
+
+      <mat-form-field class="user-input">
+        <mat-label>Description</mat-label>
+        <textarea matInput type="text" id="description" name="description" [(ngModel)]="data.description" #description="ngModel" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="user-input">
+        <mat-label>Photo Url</mat-label>
+        <input matInput type="text" id="photo"  name="photoUrl" [(ngModel)]="data.photoUrl">
+      </mat-form-field>
+    </mat-dialog-content>
+
+    <div mat-dialog-actions>
+      <a (click)="modalRef.close()" class="btn btn-warning mr-2">Close</a>
+      <a (click)="onSave()" class="btn btn-primary">Save!</a>
+    </div>
+  </form>
