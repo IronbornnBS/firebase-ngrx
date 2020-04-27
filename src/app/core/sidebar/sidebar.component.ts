@@ -6,8 +6,9 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: '/annuity-list', title: 'Annuity', class: '' },
-  { path: '/maintainance-list', title: 'Maintainance', class: '' },
+  { path: '/overview', title: 'Overview', class: '' },
+  { path: '/projects', title: 'Projects', class: '' },
+  { path: '/customers', title: 'Customers', class: '' },
 ];
 @Component({
   selector: 'app-sidebar',
